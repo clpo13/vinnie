@@ -22,4 +22,9 @@
 #ifndef VINNIE_H
 #define VINNIE_H
 
+int transliterate(char);
+char getCheckDigit(char *);
+bool validate(char *);
+int indexOf(const char *, char);
+
 #endif
