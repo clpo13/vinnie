@@ -20,14 +20,32 @@
 // SOFTWARE.
 
 #include <stdio.h>
+#include <string.h>
 
 #include "config.h"
 
 int main(int argc, char **argv) {
-    if(argc != 1) {
-        printf("%s takes no arguments.\n", argv[0]);
+    // Need one argument
+    if (argc < 2) {
+        printf("Please input a Vehicle Identification Number.\n");
+        printf("Try 'vinnie --help' for more information.\n");
         return 1;
     }
-    printf("This is project %s.\n", PROJECT_NAME);
+
+    // Help requested
+    if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0) {
+        printf("Usage:\n");
+        printf("%s <VIN>\n", PROJECT_NAME);
+        return 0;
+    }
+
+    // Version requested
+    if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0) {
+        printf("%s %s\n", PROJECT_NAME, VERSION_STR);
+        return 0;
+    }
+
+    char *vin = argv[1];
+    printf("Information for VIN %s:\n", vin);
     return 0;
 }
