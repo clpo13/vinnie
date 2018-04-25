@@ -70,7 +70,7 @@ char getCheckDigit(char *vin) {
     const char *weights = "8765432X098765432";  // here too
     int sum = 0;
     for (int i = 0; i < 17; i++) {
-        sum += transliterate(vin[i] * indexOf(map, weights[i]));
+        sum += transliterate(vin[i]) * indexOf(map, weights[i]);
     }
     return map[sum % 11];
 }
