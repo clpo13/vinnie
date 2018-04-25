@@ -11,15 +11,16 @@ matrix:
       compiler: clang
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      sudo add-apt-repository ppa:deadsnakes/ppa;
       sudo apt-get update;
-      sudo apt-get install ninja python3 python3-pip;
-      pip3 install --user meson;
+      sudo apt-get install ninja python3.6;
+      curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6;
     fi
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
       brew install ninja;
       brew upgrade python;
-      pip3 install meson;
     fi
+  - pip3 install meson
 script:
   - meson build
   - ninja -C build test
