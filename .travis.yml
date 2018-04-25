@@ -15,12 +15,13 @@ before_script:
       sudo apt-get update;
       sudo apt-get install ninja python3.6;
       curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6;
+      pip3 install --user meson;
     fi
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
       brew install ninja;
       brew upgrade python;
+      pip3 install meson;
     fi
-  - pip3 install meson
 script:
   - meson build
   - ninja -C build test
