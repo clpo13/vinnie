@@ -1,5 +1,8 @@
 # Vinnie
 
+[![Build Status](https://travis-ci.org/clpo13/vinnie.svg?branch=master)](https://travis-ci.org/clpo13/vinnie)
+[![Build status](https://ci.appveyor.com/api/projects/status/31tdtw83tgdwh2gy?svg=true)](https://ci.appveyor.com/project/clpo13/vinnie)
+
 **Vinnie** is a simple command-line tool to tell you a bit about a Vehicle Identification Number (VIN). It doesn't make any calls to a remote server, so it's usable offline.
 
 ## Requirements

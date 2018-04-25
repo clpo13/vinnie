@@ -1,0 +1,10 @@
+version: 0.1.{build}
+install:
+  - cmd: choco install ninja
+  - cmd: set PATH=%PATH%;C:\Python36-x64\Scripts\
+  - cmd: pip3.exe install meson
+build_script:
+  - cmd: meson build
+  - cmd: ninja -C build
+test_script:
+  - cmd: ninja -C build test
