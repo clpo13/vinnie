@@ -19,35 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <stdio.h>
-#include <string.h>
+#ifndef VINNIE_H
+#define VINNIE_H
 
-#include "config.h"
-#include "vinnie.h"
-
-int main(int argc, char **argv) {
-    // Need one argument
-    if (argc < 2) {
-        printf("Please input a Vehicle Identification Number.\n");
-        printf("Try 'vinnie --help' for more information.\n");
-        return 1;
-    }
-
-    // Help requested
-    if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0) {
-        printf("Usage:\n");
-        printf("%s <VIN>\n", PROJECT_NAME);
-        return 0;
-    }
-
-    // Version requested
-    if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0) {
-        printf("%s %s\n", PROJECT_NAME, VERSION_STR);
-        return 0;
-    }
-
-    char *vin = argv[1];
-    printf("Information for VIN %s:\n", vin);
-
-    return 0;
-}
+#endif
