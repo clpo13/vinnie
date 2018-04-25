@@ -5,8 +5,15 @@
 ## Requirements
 
 - C compiler (gcc, clang, MSVC, etc.)
-- Meson
-- Ninja
+- [Meson](http://mesonbuild.com/)
+- [Ninja](https://ninja-build.org/)
+
+On Debian-based systems, you can install these requirements with:
+
+```bash
+sudo apt-get update
+sudo apt-get install build-essential meson ninja-build
+```
 
 ## Building
 
@@ -15,6 +22,10 @@ meson build
 cd build
 ninja && ninja install
 ```
+
+## Usage
+
+Simply run `vinnie <VIN>` where VIN is a 17-digit Vehicle Identification Number.
 
 ## License
 
