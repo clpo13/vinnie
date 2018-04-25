@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 
     char *vin = argv[1];
     if (validate(vin)) {
-        printf("Information for VIN %s:\n", vin);
+        printf("VIN %s is valid!\n", vin);
     } else {
         printf("Invalid VIN\n");
     }
@@ -65,6 +65,8 @@ int transliterate(char c) {
 }
 
 // Calculate the check digit for a given VIN.
+// The weights are sourced from 49 CFR 565.15 Table IV and can be viewed online
+// at https://www.law.cornell.edu/cfr/text/49/565.15
 char getCheckDigit(char *vin) {
     const char *map = "0123456789X";            // X is a stand-in for 10.
     const char *weights = "8765432X098765432";  // here too
