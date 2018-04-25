@@ -11,7 +11,11 @@ configure_file(input : 'config.h.in',
                output : 'config.h',
                configuration : conf_data)
 
-exe = executable('vinnie', 'vinnie.c',
+incdir = include_directories('include')
+
+src = ['src/vinnie.c']
+exe = executable('vinnie', src,
+  include_directories : incdir,
   install : true)
   
-test('basic', exe)
+test('basic', exe, args : ['--v'])

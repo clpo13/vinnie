@@ -47,5 +47,6 @@ int main(int argc, char **argv) {
 
     char *vin = argv[1];
     printf("Information for VIN %s:\n", vin);
+
     return 0;
 }
