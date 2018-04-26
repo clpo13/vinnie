@@ -33,7 +33,7 @@ cd build
 ninja && ninja install
 ```
 
-You can also call `ninja test` in the build directory to run the unit tests.
+You can also call `ninja test` in the build directory to run the unit tests. If you'd like to build the API documentation, install [Doxygen](http://www.doxygen.org/) and run `doxygen` in the same directory as this project's `Doxyfile`.
 
 ## Usage
 
