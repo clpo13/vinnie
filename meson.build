@@ -11,11 +11,11 @@ configure_file(input : 'config.h.in',
                output : 'config.h',
                configuration : conf_data)
 
-incdir = include_directories('include')
+incdir = include_directories('include', '.')
 
-src = ['src/vinnie.c']
-exe = executable('vinnie', src,
-  include_directories : incdir,
-  install : true)
-  
-test('basic', exe, args : ['--v'])
+check_dep = dependency('check', required : false)
+if check_dep.found()
+  subdir('test')
+endif
+
+subdir('src')

@@ -16,12 +16,13 @@ Additionally, the NHTSA format was standardized in 1981, so earlier VINs likely 
 - C compiler (gcc, clang, MSVC, etc.)
 - [Meson](http://mesonbuild.com/)
 - [Ninja](https://ninja-build.org/)
+- [Check](https://libcheck.github.io/check/) (optional, for unit testing)
 
 On Debian-based systems, you can install these requirements with:
 
 ```bash
 sudo apt-get update
-sudo apt-get install build-essential meson ninja-build
+sudo apt-get install build-essential meson ninja-build check
 ```
 
 ## Building
@@ -31,6 +32,8 @@ meson build
 cd build
 ninja && ninja install
 ```
+
+You can also call `ninja test` in the build directory to run the unit tests.
 
 ## Usage
 

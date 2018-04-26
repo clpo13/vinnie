@@ -19,8 +19,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef VINNIE_H
-#define VINNIE_H
+#ifndef VIN_H
+#define VIN_H
+
+#include <stdbool.h>
+#include <string.h>
 
 int transliterate(char);
 char getCheckDigit(char *);
