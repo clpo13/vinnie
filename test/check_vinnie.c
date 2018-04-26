@@ -26,7 +26,9 @@
 
 #include "vin.h"
 
-// Test that converting characters to numbers works.
+/**
+ * Test that converting characters to numbers works.
+ */
 START_TEST (test_transliterate)
 {
   char *vin = "1HGBH41JXMN109186";
@@ -35,7 +37,9 @@ START_TEST (test_transliterate)
 }
 END_TEST
 
-// Test that the proper check digit is returned (9th character)
+/**
+ * Test that the proper check digit is returned (9th character).
+ */
 START_TEST (test_getCheckDigit)
 {
   char *vin = "1HGBH41JXMN109186";
@@ -43,7 +47,9 @@ START_TEST (test_getCheckDigit)
 }
 END_TEST
 
-// Test that good VINs are accepted and bad VINs aren't
+/**
+ * Test that good VINs are accepted and bad VINs aren't.
+ */
 START_TEST (test_validate)
 {
   char *goodVin = "1HGBH41JXMN109186";
@@ -53,6 +59,9 @@ START_TEST (test_validate)
 }
 END_TEST
 
+/**
+ * Create a test suite.
+ */
 Suite *vinnie_suite(void) {
   Suite *s;
   TCase *tc_core;
@@ -69,6 +78,11 @@ Suite *vinnie_suite(void) {
   return s;
 }
 
+/**
+ * The main function collects the specified tests and creates a test runner to
+ * execute them.
+ * @return the number of failed tests
+ */
 int main(void) {
   int number_failed;
   Suite *s;
