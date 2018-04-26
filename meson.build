@@ -25,13 +25,18 @@ install_data(['README.md', 'LICENSE'], install_dir : doc_install_dir)
 # Only build API docs if specified. Print a warning if doxygen isn't found.
 docopt = get_option('with_doc')
 if docopt
-  r = run_command('doxygen')
+  r = run_command('scripts/doxy.sh')
   if r.returncode() != 0
-    warning('Doxygen is not installed. Documentation will not be built.')
+    warning('Documentation was not built.')
+    errortxt = r.stderr().strip()
   else
+    output = r.stdout().strip()
     install_subdir('docs/html', install_dir : doc_install_dir)
   endif
 endif
+
+# Alternately, generate documentation manually with `ninja doc`.
+run_target('doc', command : 'scripts/doxy.sh')
 
 # If Check library is present, build the tests; otherwise, skip them.
 check_dep = dependency('check', required : false)
