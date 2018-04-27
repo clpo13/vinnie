@@ -42,6 +42,12 @@ If you'd like to build the API documentation, install Doxygen and Graphviz and r
 
 Simply run `vinnie <VIN>` where VIN is a 17-digit Vehicle Identification Number. The program will tell you if it's a valid VIN and, if so, print some basic info about the car, such as the model year, manufacturer, region built, and so on.
 
+## Contributions
+
+This program is still under active development, so features are not likely to work as expected or described. Even so, if you find bugs, please file an issue in the project's [issue tracker](https://github.com/clpo13/vinnie/issues) or create a [pull request](https://help.github.com/articles/about-pull-requests) to fix it. I'll try to respond to either within a few days.
+
+There's no set coding convention to adhere to, but I'd prefer it if any contributions matched the existing style of the source code (put opening braces on the same line as the class/function, don't omit braces for short if/then blocks, etc.). In other words, despite this being C, I indent like it's Java. ¯\\\_(ツ)_/¯
+
 ## License
 
 Vinnie is free to use, modify, distribute, etc. according to the terms of the [MIT License](LICENSE).
