@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/clpo13/vinnie.svg?branch=master)](https://travis-ci.org/clpo13/vinnie)
 [![Build status](https://ci.appveyor.com/api/projects/status/31tdtw83tgdwh2gy?svg=true)](https://ci.appveyor.com/project/clpo13/vinnie)
 
-**Vinnie** is a simple command-line tool to tell you some basic information about a vehicle based on its Vehicle Identification Number (VIN). It doesn't make any calls to a remote server, so it's usable offline.
+**Vinnie** is a simple command-line tool to tell you some basic information about a vehicle based on its Vehicle Identification Number (VIN).
 
 ## Caveats
 
@@ -17,12 +17,13 @@ Additionally, the NHTSA format was standardized in 1981, so earlier VINs likely 
 - [Meson](http://mesonbuild.com/)
 - [Ninja](https://ninja-build.org/)
 - [Check](https://libcheck.github.io/check/) (optional, for unit testing)
+- [Doxygen](http://www.doxygen.org/) and [Graphviz](https://www.graphviz.org/) (optional, for API documentation)
 
 On Debian-based systems, you can install these requirements with:
 
 ```bash
 sudo apt-get update
-sudo apt-get install build-essential meson ninja-build check
+sudo apt-get install build-essential meson ninja-build check doxygen graphviz
 ```
 
 ## Building
@@ -33,11 +34,13 @@ cd build
 ninja && ninja install
 ```
 
-You can also call `ninja test` in the build directory to run the unit tests. If you'd like to build the API documentation, install [Doxygen](http://www.doxygen.org/) and run `doxygen` in the same directory as this project's `Doxyfile`.
+You can also call `ninja test` in the build directory to run the unit tests.
+
+If you'd like to build the API documentation, install Doxygen and Graphviz and run `doxygen` in the same directory as this project's `Doxyfile`.
 
 ## Usage
 
-Simply run `vinnie <VIN>` where VIN is a 17-digit Vehicle Identification Number.
+Simply run `vinnie <VIN>` where VIN is a 17-digit Vehicle Identification Number. The program will tell you if it's a valid VIN and, if so, print some basic info about the car, such as the model year, manufacturer, region built, and so on.
 
 ## License
 

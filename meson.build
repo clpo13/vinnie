@@ -12,7 +12,7 @@ configure_file(input : 'config.h.in',
                output : 'config.h',
                configuration : conf_data)
 
-# Also include current directory to pick up generated config.h.
+# Also include current (i.e. build) directory to pick up generated config.h.
 incdir = include_directories('include', '.')
 
 # Miscellaneous documentation directory: $PREFIX/share/doc/vinnie
@@ -22,7 +22,7 @@ doc_install_dir = join_paths(get_option('datadir'),
 
 install_data(['README.md', 'LICENSE'], install_dir : doc_install_dir)
 
-# Only build API docs if specified. Print a warning if doxygen isn't found.
+# Only build API docs if specified with `-Dwith_doc=true`. Print a warning if Doxygen failes.
 docopt = get_option('with_doc')
 if docopt
   r = run_command('scripts/doxy.sh')
