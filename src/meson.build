@@ -4,4 +4,4 @@ exe = executable('vinnie', src,
   install : true)
   
 # Run the executable as a basic check of functionality.
-test('basic', exe, args : ['--v'])
+test('basic', exe, args : ['-v'])
