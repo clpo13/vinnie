@@ -103,12 +103,12 @@ void parseVin(char *vin) {
     char chk = vin[8];
     printf("Check digit: %c\n", chk);
 
-    // Fourth section: model year, plant code, and sequential identifier (8 char, 10-17)
+    // Fourth section: model year (1 char, 10), plant code (1 char, 11), and
+    // sequential identifier (6 char, 12-17)
     char my = vin[9];
     char pc = vin[10];
     char vis[7];
-    memcpy(vis, &vin[11], 6);
-    vis[7] = '\0';
+    memcpy(vis, &vin[11], 7);
     printf("Model year: %c\n", my);
     printf("Plant code: %c\n", pc);
     printf("Sequential identifier: %s\n", vis);
