@@ -48,14 +48,19 @@ START_TEST (test_getCheckDigit)
 END_TEST
 
 /**
- * Test that good VINs are accepted and bad VINs aren't.
+ * @brief Test that good VINs are accepted and bad VINs aren't.
+ * 
+ * A good VIN is 17 digits and passes the check digit calculation.
+ * A bad VIN is not 17 digits or fails to pass the check digit calculation.
  */
 START_TEST (test_validate)
 {
   char *goodVin = "1HGBH41JXMN109186";
   char *badVin = "2HGBH41JXMN109186";
+  char *shortVin = "1HGBH41JXMN10918";
   ck_assert_int_eq(validate(goodVin), 1);
   ck_assert_int_eq(validate(badVin), 0);
+  ck_assert_int_eq(validate(shortVin), 0);
 }
 END_TEST
 
