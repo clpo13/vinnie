@@ -27,10 +27,10 @@ docopt = get_option('with_doc')
 if docopt
   r = run_command('scripts/doxy.sh')
   if r.returncode() != 0
-    warning('Documentation was not built.')
     errortxt = r.stderr().strip()
+    warning(errortxt)
   else
-    output = r.stdout().strip()
+    #output = r.stdout().strip()
     install_subdir('docs/html', install_dir : doc_install_dir)
   endif
 endif

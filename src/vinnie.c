@@ -113,3 +113,4 @@ void parseVin(char *vin) {
     printf("Plant code: %c\n", pc);
     printf("Sequential identifier: %s\n", vis);
 }
+
