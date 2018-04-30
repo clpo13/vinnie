@@ -1,5 +1,5 @@
 project('vinnie', 'c',
-  version : '0.1.0',
+  version : '0.1.0-alpha',
   license : 'MIT',
   default_options : ['warning_level=3',
                      'c_std=c11'])
