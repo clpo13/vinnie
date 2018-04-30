@@ -38,7 +38,7 @@ int transliterate(char c) {
  * @brief Calculate the check digit for a given VIN.
  * 
  * The weights used here are sourced from 49 CFR 565.15 Table IV, which can be
- * viewed online at https://www.law.cornell.edu/cfr/text/49/565.15.
+ * viewed online at <https://www.law.cornell.edu/cfr/text/49/565.15>.
  * 
  * @param  vin a 17-character vehicle identification number
  * @return     the value of the check digit (0-9 or X)

@@ -23,11 +23,58 @@
 #include <stdlib.h>
 
 #include <curl/curl.h>
-#include <expat.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
 
 #include "config.h"
 #include "vin.h"
 #include "vinnie.h"
+
+/**
+ * @brief Struct to store data received from an HTTP request.
+ */
+struct MemoryStruct {
+    /**
+     * @brief Received data
+     */
+    char *memory;
+    /**
+     * @brief Size of received data
+     */
+    size_t size;
+};
+
+/**
+ * @brief (Re)allocate enough memory to store a chunk of data.
+ * 
+ * This function is reused from the libcurl example
+ * [getinmemory.c](https://curl.haxx.se/libcurl/c/getinmemory.html)
+ * which is licensed according to the terms found in LICENSE-3RD-PARTY and at
+ * <https://curl.haxx.se/docs/copyright.html>.
+ * 
+ * @param contents 
+ * @param size 
+ * @param nmemb 
+ * @param userp 
+ * @return size_t 
+ */
+static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+    size_t realsize = size * nmemb;
+    struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+
+    mem->memory = realloc(mem->memory, mem->size + realsize + 1);
+    if (mem->memory == NULL) {
+        // Out of memory
+        fprintf(stderr, "not enough memory (realloc returned NULL)\n");
+        return EXIT_FAILURE;
+    }
+
+    memcpy(&(mem->memory[mem->size]), contents, realsize);
+    mem->size += realsize;
+    mem->memory[mem->size] = 0;
+
+    return realsize;
+}
 
 // Create a list of arguments to print when `--help` is passed
 const struct helptxt helptext[] = {
@@ -140,33 +187,115 @@ void parseVin(char *vin) {
     printf("Sequential identifier: %s\n", vis);
 }
 
+/**
+ * @brief Iterate through an XML tree to find an element named "Make".
+ * 
+ * @param doc a pointer to an XML document tree created by parsing XML
+ * @param cur a pointer to a single XML node
+ */
+void parseMake(xmlDocPtr doc, xmlNodePtr cur) {
+    xmlChar *key;
+    cur = cur->xmlChildrenNode;
+    while (cur != NULL) {
+        if ((!xmlStrcmp(cur->name, (const xmlChar *)"Make"))) {
+            key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
+            printf("Make: %s\n", key);
+            xmlFree(key);
+        }
+        cur = cur->next;
+    }
+    return;
+}
+
+/**
+ * @brief Parse an XML document from memory.
+ * 
+ * @param content a string literal containing an XML document
+ * @param length  the size of the XML document
+ * 
+ * @todo reduce code redundancy while iterating over the XML tree
+ */
+void libxmlParse(const char *content, int length) {
+    xmlDocPtr doc;
+    xmlNodePtr cur;
+    doc = xmlReadMemory(content, length, "noname.xml", NULL, 0);
+    if (doc == NULL) {
+        fprintf(stderr, "Failed to parse document\n");
+        return;
+    }
+    cur = xmlDocGetRootElement(doc);
+    cur = cur->xmlChildrenNode;
+    // Iterate over the child elements of the root
+    while (cur != NULL) {
+        if ((!xmlStrcmp(cur->name, (const xmlChar *)"Results"))) {
+            // We found the Results node, now iterate over its children
+            cur = cur->xmlChildrenNode;
+            while (cur != NULL) {
+                if ((!xmlStrcmp(cur->name, (const xmlChar *)"DecodedWMI"))) {
+                    // We found the DecodedWMI node, now iterate over its children
+                    parseMake(doc, cur);
+                }
+                // Try the next node
+                cur = cur->next;
+            }
+            // Done here, so free up memory and exit the loop
+            xmlFreeDoc(doc);
+            return;
+        }
+        // Try the next node
+        cur = cur->next;
+    }
+    // All done, so free up memory
+    xmlFreeDoc(doc);
+}
+
+/**
+ * @brief Decode a world manufacturer identifier by querying the [NHTSA vPIC API](https://vpic.nhtsa.dot.gov/api/).
+ * 
+ * @param wmi a three-digit code representing a manufacturer
+ */
 void getWMI(char *wmi) {
     char *url = "https://vpic.nhtsa.dot.gov/api/vehicles/decodewmi/";
     char fullurl[256];
     snprintf(fullurl, sizeof(fullurl), "%s%s", url, wmi);
-    printf("Querying %s\n", fullurl);
+    //printf("Querying %s\n", fullurl);
 
     CURL *curl;
     CURLcode res;
 
-    curl_global_init(CURL_GLOBAL_DEFAULT);
+    struct MemoryStruct chunk;
+
+    chunk.memory = malloc(1);
+    chunk.size = 0;
+
+    curl_global_init(CURL_GLOBAL_ALL);
 
     curl = curl_easy_init();
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, fullurl);
+        // Use a callback function to store received data
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
         res = curl_easy_perform(curl);
 
         // Check for errors
         if (res != CURLE_OK) {
             fprintf(stderr, "curl_easy_perform() failed %s\n", curl_easy_strerror(res));
+        } else {
+            // Parse XML
+            LIBXML_TEST_VERSION
+            libxmlParse(chunk.memory, chunk.size);
+            xmlCleanupParser();
         }
 
         // Cleanup request
         curl_easy_cleanup(curl);
     }
 
+    // Clean up stored data
+    free(chunk.memory);
+
     // Global cleanup
     curl_global_cleanup();
-    printf("\n"); // add newline after response
 }
