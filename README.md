@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/clpo13/vinnie.svg?branch=master)](https://travis-ci.org/clpo13/vinnie)
 [![Build status](https://ci.appveyor.com/api/projects/status/31tdtw83tgdwh2gy?svg=true)](https://ci.appveyor.com/project/clpo13/vinnie)
 
-**Vinnie** is a simple command-line tool to tell you some basic information about a vehicle based on its Vehicle Identification Number (VIN).
+**Vinnie** is a simple command-line tool to tell you some basic information about a vehicle based on its vehicle identification number (VIN).
 
 ## Caveats
 
@@ -40,7 +40,7 @@ If you'd like to build the API documentation, install Doxygen and Graphviz and r
 
 ## Usage
 
-Simply run `vinnie <VIN>` where VIN is a 17-digit Vehicle Identification Number. The program will tell you if it's a valid VIN and, if so, print some basic info about the car, such as the model year, manufacturer, region built, and so on.
+Simply run `vinnie <VIN>` where VIN is a 17-digit vehicle identification number. The program will tell you if it's a valid VIN and, if so, print some basic info about the car, such as the model year, manufacturer, region built, and so on.
 
 ## Contributions
 

@@ -40,7 +40,7 @@ int transliterate(char c) {
  * The weights used here are sourced from 49 CFR 565.15 Table IV, which can be
  * viewed online at https://www.law.cornell.edu/cfr/text/49/565.15.
  * 
- * @param  vin a 17-character Vehicle Identification Number
+ * @param  vin a 17-character vehicle identification number
  * @return     the value of the check digit (0-9 or X)
  */
 char getCheckDigit(char *vin) {
@@ -56,7 +56,7 @@ char getCheckDigit(char *vin) {
 /**
  * @brief Validate a given VIN by its length and check digit.
  * 
- * @param  vin a 17-character Vehicle Identification Number
+ * @param  vin a 17-character vehicle identification number
  * @return     true if the VIN is valid, false otherwise
  */
 bool validate(char *vin) {
