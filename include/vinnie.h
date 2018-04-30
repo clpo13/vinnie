@@ -59,5 +59,6 @@ struct modelyear {
 };
 
 void parseVin(char *);
+void getWMI(char *);
 
 #endif

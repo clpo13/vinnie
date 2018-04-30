@@ -14,16 +14,21 @@ Additionally, the NHTSA format was standardized in 1981, so earlier VINs likely 
 ## Requirements
 
 - C compiler (gcc, clang, MSVC, etc.)
+- [Expat](https://libexpat.github.io/)
+- [libcurl](https://curl.haxx.se/libcurl/)
 - [Meson](http://mesonbuild.com/)
 - [Ninja](https://ninja-build.org/)
-- [Check](https://libcheck.github.io/check/) (optional, for unit testing)
-- [Doxygen](http://www.doxygen.org/) and [Graphviz](https://www.graphviz.org/) (optional, for API documentation)
+
+Optional:
+
+- [Check](https://libcheck.github.io/check/) (for unit testing)
+- [Doxygen](http://www.doxygen.org/) and [Graphviz](https://www.graphviz.org/) (for API documentation)
 
 On Debian-based systems, you can install these requirements with:
 
 ```bash
 sudo apt-get update
-sudo apt-get install build-essential meson ninja-build check doxygen graphviz
+sudo apt-get install build-essential libexpat1-dev libcurl4-openssl-dev meson ninja-build check doxygen graphviz
 ```
 
 ## Building

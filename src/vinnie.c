@@ -22,6 +22,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <curl/curl.h>
+#include <expat.h>
+
 #include "config.h"
 #include "vin.h"
 #include "vinnie.h"
@@ -128,6 +131,7 @@ void parseVin(char *vin) {
     memcpy(wmi, &vin[0], 3);
     wmi[3] = '\0';
     printf("World manufacturer identifier: %s\n", wmi);
+    getWMI(wmi);
 
     // Second section: vehicle attributes (5 chars, pos 4-8)
     char va[6];
@@ -159,4 +163,35 @@ void parseVin(char *vin) {
     printf("Model year: %i\n", year);
     printf("Plant code: %c\n", pc);
     printf("Sequential identifier: %s\n", vis);
+}
+
+void getWMI(char *wmi) {
+    char *url = "https://vpic.nhtsa.dot.gov/api/vehicles/decodewmi/";
+    char fullurl[256];
+    snprintf(fullurl, sizeof(fullurl), "%s%s", url, wmi);
+    printf("Querying %s\n", fullurl);
+
+    CURL *curl;
+    CURLcode res;
+
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+
+    curl = curl_easy_init();
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, fullurl);
+
+        res = curl_easy_perform(curl);
+
+        // Check for errors
+        if (res != CURLE_OK) {
+            fprintf(stderr, "curl_easy_perform() failed %s\n", curl_easy_strerror(res));
+        }
+
+        // Cleanup request
+        curl_easy_cleanup(curl);
+    }
+
+    // Global cleanup
+    curl_global_cleanup();
+    printf("\n"); // add newline after response
 }

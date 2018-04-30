@@ -53,5 +53,9 @@ if check_dep.found()
   subdir('test')
 endif
 
+# Required dependencies
+curl_dep = dependency('libcurl')
+expat_dep = dependency('expat')
+
 # Main source code directory
 subdir('src')
