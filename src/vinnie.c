@@ -151,7 +151,7 @@ void parseVin(char *vin) {
     char wmi[4];
     memcpy(wmi, &vin[0], 3);
     wmi[3] = '\0';
-    printf("World manufacturer identifier: %s\n", wmi);
+    //printf("World manufacturer identifier: %s\n", wmi);
     getWMI(wmi);
 
     // Second section: vehicle attributes (5 chars, pos 4-8)
@@ -161,8 +161,8 @@ void parseVin(char *vin) {
     printf("Vehicle attributes: %s\n", va);
 
     // Third section: check digit (1 char, pos 9)
-    char chk = vin[8];
-    printf("Check digit: %c\n", chk);
+    //char chk = vin[8];
+    //printf("Check digit: %c\n", chk);
 
     // Fourth section: model year (1 char, pos 10), plant code (1 char, pos 11),
     // and sequential identifier (6 char, pos 12-17)
@@ -221,12 +221,37 @@ void getWMI(char *wmi) {
             fprintf(stderr, "curl_easy_perform() failed %s\n", curl_easy_strerror(res));
         } else {
             // Print raw response data
-            printf("%s\n", chunk.memory);
+            //printf("%s\n", chunk.memory);
 
             // Parse JSON
+            const cJSON *results = NULL;
+            const cJSON *result = NULL;
             cJSON *json = cJSON_Parse(chunk.memory);
+            if (json == NULL) {
+              const char *errorPtr = cJSON_GetErrorPtr();
+              if (errorPtr != NULL) {
+                fprintf(stderr, "Error before: %s\n", errorPtr);
+              }
+              cJSON_Delete(json);
+              return;
+            }
 
-            // do something with the JSON
+            // Get manufacturer, make, and vehicle type from JSON
+            results = cJSON_GetObjectItemCaseSensitive(json, "Results");
+            cJSON_ArrayForEach(result, results) {
+              cJSON *manufacturer = cJSON_GetObjectItemCaseSensitive(result, "ManufacturerName");
+              cJSON *make = cJSON_GetObjectItemCaseSensitive(result, "Make");
+              cJSON *type = cJSON_GetObjectItemCaseSensitive(result, "VehicleType");
+
+              if (!cJSON_IsString(manufacturer) || !cJSON_IsString(make) || !cJSON_IsString(type)) {
+                cJSON_Delete(json);
+                return;
+              } else {
+                printf("Manufacturer: %s\n", manufacturer->valuestring);
+                printf("Make: %s\n", make->valuestring);
+                printf("Type: %s\n", type->valuestring);
+              }
+            }
 
             cJSON_Delete(json);
         }
