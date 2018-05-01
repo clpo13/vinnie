@@ -53,7 +53,6 @@ endif
 
 # Required dependencies
 curl_dep = dependency('libcurl')
-libxml2_dep = dependency('libxml-2.0')
 
 # Main source code directory
 subdir('src')

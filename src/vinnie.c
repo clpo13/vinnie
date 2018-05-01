@@ -23,9 +23,8 @@
 #include <stdlib.h>
 
 #include <curl/curl.h>
-#include <libxml/parser.h>
-#include <libxml/tree.h>
 
+#include "cJSON.h"
 #include "config.h"
 #include "vin.h"
 #include "vinnie.h"
@@ -188,68 +187,6 @@ void parseVin(char *vin) {
 }
 
 /**
- * @brief Iterate through an XML tree to find an element named "Make".
- * 
- * @param doc a pointer to an XML document tree created by parsing XML
- * @param cur a pointer to a single XML node
- */
-void parseMake(xmlDocPtr doc, xmlNodePtr cur) {
-    xmlChar *key;
-    cur = cur->xmlChildrenNode;
-    while (cur != NULL) {
-        if ((!xmlStrcmp(cur->name, (const xmlChar *)"Make"))) {
-            key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-            printf("Make: %s\n", key);
-            xmlFree(key);
-        }
-        cur = cur->next;
-    }
-    return;
-}
-
-/**
- * @brief Parse an XML document from memory.
- * 
- * @param content a string literal containing an XML document
- * @param length  the size of the XML document
- * 
- * @todo reduce code redundancy while iterating over the XML tree
- */
-void libxmlParse(const char *content, int length) {
-    xmlDocPtr doc;
-    xmlNodePtr cur;
-    doc = xmlReadMemory(content, length, "noname.xml", NULL, 0);
-    if (doc == NULL) {
-        fprintf(stderr, "Failed to parse document\n");
-        return;
-    }
-    cur = xmlDocGetRootElement(doc);
-    cur = cur->xmlChildrenNode;
-    // Iterate over the child elements of the root
-    while (cur != NULL) {
-        if ((!xmlStrcmp(cur->name, (const xmlChar *)"Results"))) {
-            // We found the Results node, now iterate over its children
-            cur = cur->xmlChildrenNode;
-            while (cur != NULL) {
-                if ((!xmlStrcmp(cur->name, (const xmlChar *)"DecodedWMI"))) {
-                    // We found the DecodedWMI node, now iterate over its children
-                    parseMake(doc, cur);
-                }
-                // Try the next node
-                cur = cur->next;
-            }
-            // Done here, so free up memory and exit the loop
-            xmlFreeDoc(doc);
-            return;
-        }
-        // Try the next node
-        cur = cur->next;
-    }
-    // All done, so free up memory
-    xmlFreeDoc(doc);
-}
-
-/**
  * @brief Decode a world manufacturer identifier by querying the [NHTSA vPIC API](https://vpic.nhtsa.dot.gov/api/).
  * 
  * @param wmi a three-digit code representing a manufacturer
@@ -257,7 +194,7 @@ void libxmlParse(const char *content, int length) {
 void getWMI(char *wmi) {
     char *url = "https://vpic.nhtsa.dot.gov/api/vehicles/decodewmi/";
     char fullurl[256];
-    snprintf(fullurl, sizeof(fullurl), "%s%s", url, wmi);
+    snprintf(fullurl, sizeof(fullurl), "%s%s%s", url, wmi, "?format=json");
     //printf("Querying %s\n", fullurl);
 
     CURL *curl;
@@ -283,10 +220,15 @@ void getWMI(char *wmi) {
         if (res != CURLE_OK) {
             fprintf(stderr, "curl_easy_perform() failed %s\n", curl_easy_strerror(res));
         } else {
-            // Parse XML
-            LIBXML_TEST_VERSION
-            libxmlParse(chunk.memory, chunk.size);
-            xmlCleanupParser();
+            // Print raw response data
+            printf("%s\n", chunk.memory);
+
+            // Parse JSON
+            cJSON *json = cJSON_Parse(chunk.memory);
+
+            // do something with the JSON
+
+            cJSON_Delete(json);
         }
 
         // Cleanup request

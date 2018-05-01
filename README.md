@@ -14,7 +14,6 @@ Additionally, the NHTSA format was standardized in 1981, so earlier VINs likely 
 ## Requirements
 
 - C compiler (gcc, clang, MSVC, etc.)
-- [libxml2](http://xmlsoft.org/)
 - [libcurl](https://curl.haxx.se/libcurl/)
 - [Meson](http://mesonbuild.com/)
 - [Ninja](https://ninja-build.org/)
@@ -53,6 +52,12 @@ This program is still under active development, so features are not likely to wo
 
 There's no set coding convention to adhere to, but I'd prefer it if any contributions matched the existing style of the source code (put opening braces on the same line as the class/function, don't omit braces for short if/then blocks, etc.). In other words, despite this being C, I indent like it's Java. ¯\\\_(ツ)_/¯
 
-## License
+## Copyright
 
 Vinnie is free to use, modify, distribute, etc. according to the terms of the [MIT License](LICENSE).
+
+Portions of the sample code from curl are reused under the [curl license](https://curl.haxx.se/docs/copyright.html).
+
+This program also incorporates and distributes [cJSON](https://github.com/DaveGamble/cJSON) per the terms of the MIT License.
+
+The text of third party licenses can be found in [LICENSE-3RD-PARTY](LICENSE-3RD-PARTY).

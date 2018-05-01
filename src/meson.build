@@ -1,6 +1,6 @@
-src = ['vinnie.c', 'vin.c']
+src = ['vinnie.c', 'vin.c', 'cJSON.c']
 exe = executable('vinnie', src,
-  dependencies : [curl_dep, libxml2_dep],
+  dependencies : curl_dep,
   include_directories : incdir,
   install : true)
   
