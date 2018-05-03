@@ -1,7 +1,7 @@
 # Vinnie
 
 [![Build Status](https://travis-ci.org/clpo13/vinnie.svg?branch=master)](https://travis-ci.org/clpo13/vinnie)
-[![Build status](https://ci.appveyor.com/api/projects/status/31tdtw83tgdwh2gy?svg=true)](https://ci.appveyor.com/project/clpo13/vinnie)
+[![Build status](https://ci.appveyor.com/api/projects/status/31tdtw83tgdwh2gy/branch/master?svg=true)](https://ci.appveyor.com/project/clpo13/vinnie/branch/master)
 
 **Vinnie** is a simple command-line tool to tell you some basic information about a vehicle based on its vehicle identification number (VIN).
 
