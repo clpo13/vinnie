@@ -29,7 +29,7 @@ doc_install_dir = join_paths(get_option('datadir'),
 
 install_data(['README.md', 'LICENSE'], install_dir : doc_install_dir)
 
-# Only build API docs if specified with `-Dwith_doc=true`. Print a warning if Doxygen failes.
+# Only build API docs if specified with `-Dwith_doc=true`. Print a warning if Doxygen fails.
 docopt = get_option('with_doc')
 if docopt
   r = run_command('scripts/doxy.sh')
