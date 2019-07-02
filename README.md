@@ -50,4 +50,6 @@ There's no set coding convention to adhere to, but I'd prefer it if any contribu
 
 ## License
 
+Copyright (c) 2018-2019 Cody Logan.
+
 Vinnie is free to use, modify, distribute, etc. according to the terms of the [MIT License](LICENSE).
