@@ -2,29 +2,24 @@ language: c
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: xenial
       compiler: gcc
     - os: linux
-      dist: trusty
+      dist: xenial
       compiler: clang
     - os: osx
       compiler: clang
-before_script:
-  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      sudo add-apt-repository -y ppa:deadsnakes/ppa;
-      sudo apt-get update;
-      sudo apt-get install -y python3.6 unzip check;
-      curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6;
-      pip3 install --user meson;
-      wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip;
-      unzip ninja-linux.zip;
-      sudo mv ninja /usr/local/bin/ninja;
-    fi
-  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-      brew install ninja check;
-      brew upgrade python;
-      pip3 install meson;
-    fi
+addons:
+  apt:
+    packages:
+      - check
+      - meson
+      - ninja-build
+  homebrew:
+    packages:
+      - check
+      - meson
+      - ninja
 script:
   - meson build
   - ninja -C build test
