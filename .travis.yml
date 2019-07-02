@@ -20,6 +20,7 @@ addons:
       - check
       - meson
       - ninja
+    update: true
 script:
   - meson build
   - ninja -C build test
