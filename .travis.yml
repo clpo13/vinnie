@@ -13,6 +13,7 @@ addons:
   apt:
     packages:
       - check
+      - python3-pip
       - unzip
   homebrew:
     packages:
