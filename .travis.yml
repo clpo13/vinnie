@@ -13,14 +13,19 @@ addons:
   apt:
     packages:
       - check
-      - meson
-      - ninja-build
+      - unzip
   homebrew:
     packages:
       - check
       - meson
       - ninja
-    update: true
+before_script:
+  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      pip3 install --user meson;
+      wget https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip;
+      unzip ninja-linux.zip;
+      sudo mv ninja /usr/local/bin/ninja;
+    fi
 script:
   - meson build
   - ninja -C build test
