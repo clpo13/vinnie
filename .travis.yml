@@ -22,7 +22,7 @@ addons:
     update: true
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      pip3 install --user meson;
+      python3 -m pip install --user meson;
       wget https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip;
       unzip ninja-linux.zip;
       sudo mv ninja /usr/local/bin/ninja;
