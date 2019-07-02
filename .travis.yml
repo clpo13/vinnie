@@ -19,6 +19,7 @@ addons:
       - check
       - meson
       - ninja
+    update: true
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       pip3 install --user meson;
