@@ -44,14 +44,14 @@ const struct modelyear modelyear[] = {
 int main(int argc, char **argv) {
     // Need one argument
     if (argc < 2) {
-        printf("Usage: %s VIN\n", PROJECT_NAME);
+        printf("Usage: %s VIN\n", PACKAGE_NAME);
         printf("Try 'vinnie --help' for more information.\n");
         return EXIT_FAILURE;
     }
 
     // Help requested
     if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0) {
-        printf("Usage: %s [options] <VIN>\n", PROJECT_NAME);
+        printf("Usage: %s [options] <VIN>\n", PACKAGE_NAME);
         for (int i = 0; helptext[i].opt; i++) {
             printf("  %-15s %s\n", helptext[i].opt, helptext[i].desc);
         }
@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
 
     // Version requested
     if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0) {
-        printf("%s %s\n", PROJECT_NAME, VERSION_STR);
+        printf("%s\n", PACKAGE_STRING);
         return EXIT_SUCCESS;
     }
 

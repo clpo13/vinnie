@@ -14,8 +14,8 @@ Additionally, the NHTSA format was standardized in 1981, so earlier VINs likely 
 ## Requirements
 
 - C compiler (gcc, clang, MSVC, etc.)
-- [Meson](http://mesonbuild.com/)
-- [Ninja](https://ninja-build.org/)
+- GNU Autotools
+- GNU Make
 - [Check](https://libcheck.github.io/check/) (optional, for unit testing)
 - [Doxygen](http://www.doxygen.org/) and [Graphviz](https://www.graphviz.org/) (optional, for API documentation)
 
@@ -23,18 +23,18 @@ On Debian-based systems, you can install these requirements with:
 
 ```bash
 sudo apt-get update
-sudo apt-get install build-essential meson ninja-build check doxygen graphviz
+sudo apt-get install build-essential check doxygen graphviz
 ```
 
 ## Building
 
 ```bash
-meson build
-cd build
-ninja && ninja install
+autoreconf -iv
+./configure
+make && make install
 ```
 
-You can also call `ninja test` in the build directory to run the unit tests.
+You can also call `make check` in the build directory to run the unit tests.
 
 If you'd like to build the API documentation, install Doxygen and Graphviz and run `doxygen` in the same directory as this project's `Doxyfile`.
 

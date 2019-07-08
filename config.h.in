@@ -1,6 +1,0 @@
-// Vinnie - simple VIN decoder
-// Copyright (c) 2018-2019 Cody Logan
-// SPDX-License-Identifier: MIT
-
-#define VERSION_STR "@version@"
-#define PROJECT_NAME "@name@"
