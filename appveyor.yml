@@ -7,10 +7,6 @@ environment:
     - compiler: clang
     - compiler: vs2015
     - compiler: vs2017
-install:
-  - cmd: choco install ninja
-  - cmd: set PATH=%PATH%;C:\Python36-x64\Scripts\
-  - cmd: pip3.exe install meson
 build_script:
   - cmd: set CC=cl
   - cmd: if %compiler%==vs2015 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
@@ -20,7 +16,7 @@ build_script:
   - cmd: if %compiler%==msys64 set CC=gcc
   - cmd: if %compiler%==cygwin64 set PATH=C:\cygwin64\bin;%PATH%
   - cmd: if %compiler%==cygwin64 set CC=gcc
-  - cmd: meson build
-  - cmd: ninja -C build
+  - cmd: autoreconf -i
+  - cmd: ./configure
 test_script:
-  - cmd: ninja -C build test
+  - cmd: make check
