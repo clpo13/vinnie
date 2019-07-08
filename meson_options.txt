@@ -1,1 +1,0 @@
-option('with_doc', type : 'boolean', value : false)
