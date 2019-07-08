@@ -2,7 +2,7 @@ AC_PREREQ([2.69])
 AC_INIT([vinnie], [0.1.0-alpha], [bugs@madrants.net])
 AC_CONFIG_SRCDIR([src/])
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([foreign subdir-objects])
+AM_INIT_AUTOMAKE([foreign])
 PKG_PROG_PKG_CONFIG
 
 # Checks for programs.
