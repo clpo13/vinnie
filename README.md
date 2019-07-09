@@ -13,7 +13,7 @@ Additionally, the NHTSA format was standardized in 1981, so earlier VINs likely 
 
 ## Requirements
 
-- C compiler (gcc, clang, MSVC, etc.)
+- C compiler (gcc, clang, etc.)
 - GNU Autotools
 - GNU Make
 - [Check](https://libcheck.github.io/check/) (optional, for unit testing)

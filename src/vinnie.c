@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     // Need one argument
     if (argc < 2) {
         printf("Usage: %s VIN\n", PACKAGE_NAME);
-        printf("Try 'vinnie --help' for more information.\n");
+        printf("Try '%s --help' for more information.\n", PACKAGE_NAME);
         return EXIT_FAILURE;
     }
 

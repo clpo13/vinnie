@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([vinnie], [0.1.0-alpha], [bugs@madrants.net])
+AC_INIT([vinnie], [0.1.0-alpha], [], [], [https://github.com/clpo13/vinnie])
 AC_CONFIG_SRCDIR([src/])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign])
