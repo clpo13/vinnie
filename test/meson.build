@@ -1,6 +1,6 @@
-t_src = ['check_vinnie.c', '../src/vin.c']
-t = executable('check_vinnie', t_src,
+t = executable('check_vinnie', 'check_vinnie.c',
   dependencies : check_dep,
+  link_with : libvin,
   include_directories : incdir,
   c_args : disable_gnu_warning)
 
