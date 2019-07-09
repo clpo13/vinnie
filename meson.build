@@ -1,3 +1,4 @@
+# General project settings
 project('vinnie', 'c',
   version : '0.1.0-alpha',
   license : 'MIT',
