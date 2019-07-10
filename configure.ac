@@ -8,6 +8,7 @@ PKG_PROG_PKG_CONFIG
 # Checks for programs.
 AC_PROG_CPP
 AC_PROG_CC
+AC_PROG_RANLIB
 
 # Checks for libraries.
 PKG_CHECK_MODULES([CHECK], [check], [have_libcheck=yes], [have_libcheck=no])
@@ -24,6 +25,7 @@ AC_CHECK_HEADER_STDBOOL
 AC_CHECK_FUNCS([strchr])
 
 AC_CONFIG_FILES([Makefile
+                 lib/Makefile
                  src/Makefile
                  tests/Makefile])
 AC_OUTPUT
