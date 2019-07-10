@@ -2,6 +2,7 @@
 // Copyright (c) 2018-2019 Cody Logan
 // SPDX-License-Identifier: MIT
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -65,6 +66,14 @@ int main(int argc, char **argv) {
     }
 
     char *vin = argv[1];
+
+    // convert to uppercase
+    char *s = vin;
+    while (*s) {
+        *s = toupper((unsigned char) *s);
+        s++;
+    }
+
     if (validate(vin)) {
         printf("VIN %s is valid!\n", vin);
         parseVin(vin);
