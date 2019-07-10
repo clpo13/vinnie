@@ -8,6 +8,7 @@ matrix:
       dist: xenial
       compiler: clang
     - os: osx
+      osx_image: xcode11
       compiler: clang
 addons:
   apt:
@@ -15,6 +16,7 @@ addons:
       - check
       - python3-pip
       - python3-setuptools
+      - python3-wheel
       - unzip
     update: true
   homebrew:
@@ -22,7 +24,6 @@ addons:
       - check
       - meson
       - ninja
-    update: true
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       python3 -m pip install --user meson;
