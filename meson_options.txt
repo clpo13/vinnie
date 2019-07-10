@@ -1,1 +1,1 @@
-option('with_doc', type : 'boolean', value : false)
+option('with_doc', type : 'boolean', value : false, description : 'Build API documentation')
