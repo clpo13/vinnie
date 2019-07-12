@@ -1,4 +1,5 @@
 AM_CFLAGS = -I$(top_srcdir)/include
 
-noinst_LIBRARIES = libvin.a
-libvin_a_SOURCES = vin.c
+lib_LTLIBRARIES = libvin.la
+libvin_la_SOURCES = vin.c
+libvin_la_LDFLAGS = -version-info 0:0:0
