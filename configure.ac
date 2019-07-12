@@ -21,8 +21,6 @@ AS_IF([test "$have_libcheck" = "no"], [
 AM_CONDITIONAL([HAVE_CHECK], [test "$have_libcheck" = "yes"])
 
 # Checks for header files.
-AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
