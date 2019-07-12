@@ -15,7 +15,10 @@ LT_INIT([win32-dll])
 
 # Checks for libraries.
 PKG_CHECK_MODULES([CHECK], [check], [have_libcheck=yes], [have_libcheck=no])
-AM_CONDITIONAL([CHECK], [test "$have_libcheck" = "yes"])
+AS_IF([test "$have_libcheck" = "no"], [
+    AC_MSG_WARN([Check not found. Unit tests will not be built.])
+])
+AM_CONDITIONAL([HAVE_CHECK], [test "$have_libcheck" = "yes"])
 
 # Checks for header files.
 AC_HEADER_STDC
@@ -27,6 +30,7 @@ AC_CHECK_HEADER_STDBOOL
 # Checks for library functions.
 AC_CHECK_FUNCS([strchr])
 
+# Set up Makefiles.
 AC_CONFIG_FILES([Makefile
                  lib/Makefile
                  src/Makefile
