@@ -1,6 +1,6 @@
 # General project settings
 project('vinnie', 'c',
-  version : '0.1.0-alpha',
+  version : '0.1.1-alpha',
   license : 'MIT',
   default_options : ['warning_level=3',
                      'c_std=c11'])
