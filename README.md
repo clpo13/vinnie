@@ -29,7 +29,7 @@ sudo apt-get install build-essential check doxygen graphviz
 ## Building
 
 ```bash
-autoreconf -iv
+./autogen.sh
 ./configure
 make && make install
 ```
