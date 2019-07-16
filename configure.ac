@@ -1,10 +1,9 @@
 AC_PREREQ([2.69])
-AC_INIT([vinnie], [0.1.1-alpha], [https://github.com/clpo13/vinnie/issues], [vinnie], [https://github.com/clpo13/vinnie])
+AC_INIT([vinnie], [0.1.1-alpha], [], [], [https://github.com/clpo13/vinnie])
 AC_CONFIG_SRCDIR([src/])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4])
-AM_INIT_AUTOMAKE([1.11 foreign dist-xz])
-AM_SILENT_RULES([yes])
+AM_INIT_AUTOMAKE([foreign dist-xz])
 
 # Checks for programs.
 PKG_PROG_PKG_CONFIG
