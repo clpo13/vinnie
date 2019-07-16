@@ -12,9 +12,7 @@ matrix:
       compiler: clang
     - os: osx
       osx_image: xcode11
-      before_install:
-        - brew install gcc
-        - export CC=gcc-9
+      compiler: gcc-9
 addons:
   apt:
     packages:
