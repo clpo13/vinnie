@@ -5,3 +5,4 @@ SUBDIRS = lib \
 if HAVE_CHECK
 SUBDIRS += tests
 endif
+EXTRA_DIST = autogen.sh Doxyfile LICENSE README.md
